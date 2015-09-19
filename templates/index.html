@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    var x=document.getElementById("location")
+    
+    function getLocation()
+    {    
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+        
+        function success(pos) {
+            var crd = pos.coords;
+            var data = new FormData();
+            data.append('lat', crd.latitude);
+            data.append('lon', crd.longitude);
+            data.append('acc', crd.accuracy);
+            console.log('Your current position is:');
+            console.log('Latitude : ' + crd.latitude);
+            console.log('Longitude: ' + crd.longitude);
+            console.log('More or less ' + crd.accuracy + ' meters.');
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/index');
+            xhr.onload = function () {
+                // do something to response
+                console.log('XMLHttpRequest response: ' + this.responseText);
+            };
+            console.log('data: ' + data)            
+            xhr.send(data);
+        };
+        
+        function error(err) {
+            console.warn('ERROR(' + err.code + '): ' + err.message);
+        };
+        
+        if (navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+        else{x.innerHTML="Geolocation is not supported by this browser.";}
+    }
+
+    function showPosition(position)
+        {
+            x.innerHTML="Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude + "with an accuracy of: " + position.coords.accuracy + "m";
+        }
+
+    window.onload = getLocation;
+    
+
+</script>
+{% endblock scripts %}
+
+{% block title %}Weather Forecast{% endblock %}
+
+{% block navplace %}
+{{ wtf.quick_form(form, extra_classes="well well-sm", form_type="inline", button_map = {'search':'primary','locate_me':'danger'}) }}
+{% endblock navplace %}
+
+{% block page_content %}
+
+{% endblock page_content %}

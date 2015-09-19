@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+{% endblock styles %}
+
+{% block scripts %}
+{{ super() }}
+{{mymap.js}}
+{% endblock scripts %}
+
+{% block title %}Weather Forecast{% endblock %}
+
+{% block page_content %}
+    <header>
+        <h1>{{ place }} ({{ country }})</h1>
+    </header>
+    <div>
+        <article>
+            <h3>Current weather</h3>
+            <ul class="list-unstyled">    
+                <li>Weather:     {{ weather['weather'] }}</li>
+                <li>Temperature: {{ weather['temperature'] }}</li>
+                <li>Pressure:    {{ weather['pressure'] }}</li>
+                <li>Humidity:    {{ weather['humidity'] }}</li>
+                <li>Wind:</li> 
+                <ul>
+                    <li>Speed:      {{ weather['wind_speed'] }}</li>
+                    <li>Direction:  {{ weather['wind_direction'] }}</li>
+                </ul>                                  
+            </ul>   
+        </article>
+        <aside>
+            {{mymap.html}} 
+        </aside>        
+    </div> 
+   <footer>
+        {{ wtf.quick_form (form, action="/mapView", 
+                           method="POST", 
+                           form_type="inline",
+                           button_map={'forecast': 'primary'} ) }}
+   </footer>    
+{% endblock page_content %}
+   

@@ -1,0 +1,129 @@
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>Google Maps - pygmaps by XL </title>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+	function initialize() {
+		var centerlatlng = new google.maps.LatLng(52.141842, 4.399863);
+		var myOptions = {
+			zoom: 15,
+			center: centerlatlng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+		var latlng = new google.maps.LatLng(52.141842, 4.399863);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/house.png");
+		var marker = new google.maps.Marker({
+		title: (52.1418419758,4.39986305972),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.087500, 4.403000);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (52.0875,4.403),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.039700, 4.363200);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (52.0397,4.3632),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(51.956900, 4.437200);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (51.9569,4.4372),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.164300, 4.710800);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (52.1643,4.7108),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.303700, 4.678000);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (52.3037,4.678),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.300000, 4.766700);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (52.3,4.7667),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.308600, 4.763900);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (52.3086,4.7639),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(51.889000, 4.164700);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (51.889,4.1647),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(51.855200, 4.507300);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (51.8552,4.5073),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.080300, 4.868100);
+		var img = new google.maps.MarkerImage("static/Google Maps Markers/station.png");
+		var marker = new google.maps.Marker({
+		title: (52.0803,4.8681),
+		icon: img,
+		position: latlng
+		});
+		marker.setMap(map);
+
+		var latlng = new google.maps.LatLng(52.141842, 4.399863);
+		var marker = new google.maps.Circle({
+		fillColor: "#0000FF",		fillOpacity: 0.2,		strokeColor: "#0000FF",		strokeOpacity: 0.7,		strokeWeight: 1,		center: latlng,
+		radius: 65.000000
+		});
+		marker.setMap(map);
+
+	}
+</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="initialize()">
+	<div id="map_canvas" style="width: 720px; height: 400px;"></div>
+</body>
+</html>

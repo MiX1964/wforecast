@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+<link href="static/css/weather-icons-wind.min.css" rel="stylesheet" media="screen">
+<link href="static/css/weather-icons.min.css" rel="stylesheet" media="screen">
+{% endblock styles %}
+
+{% block title %}Weather Forecast{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    var pressure;
+    
+    function initPressure() {
+        pressure = {{ forecast['pressure'] }};
+    }
+    
+    function drawPressureInTable() {
+        initPressure();
+        var table = document.getElementById("forecastTable");
+        var row;
+        for (var i=1; row=table.rows[i]; i++) {
+            var cellPressure = row.cells[5].innerHTML;
+            var pDifference = cellPressure - pressure;
+            pressure = cellPressure;
+            if (pDifference > 2) {
+                trend = "wi-direction-up";
+            } else if (pDifference > 0) {
+                trend = "wi-direction-up-right";
+            } else if (pDifference == 0) {
+                trend = "wi-direction-right";                                
+            } else if (pDifference > - 3) {
+                trend = "wi-direction-down-right";                                
+            } else {
+                trend = "wi-direction-down";                                
+            }
+            var text = "<td class=\"c2\"><i class=\"wi " + trend + "\"></i></td>";
+            row.cells[6].innerHTML = text;      
+        }        
+    }
+</script>
+{% endblock scripts %}
+  
+{% block page_content %}
+    <body onload="drawPressureInTable()">
+        <h3>{{ forecast['city'] }} ({{ forecast['country'] }})</h3>       
+        <div class="panel-body">
+            <p>{{ moment(current_time).format('LLL') }} ({{ moment(current_time).fromNow(refresh=True) }})</p>             
+            <div>
+                <!--table class="table table-bordered table-striped"-->
+                <table class="gridtable" id="forecastTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day / Night</th>
+                            <th>Time</th> 
+                            <th>Weather</th>
+                            <th>Temperature</th>
+                            <th>Pressure</th>
+                            <th>Trend</th>
+                            <th>Humidity</th>  
+                            <th>Wind speed</th>
+                            <th>Wind direction</th>
+                            <th>Rain in 3h</th>                     
+                        </tr>                    
+                    </thead> 
+                    <tbody>
+                        {% for record in forecast['forecasts'] %}
+                            <tr>
+                                <td class="c1">{{ record[0] }}</td>                         
+                                <td class="c2">
+                                    {% if record[2] %}
+                                        <i class="wi wi-fw wi-day-sunny"></i>
+                                    {% else %}
+                                        <i class="wi wi-fw wi-moon-alt-waxing-cresent-3"></i>
+                                    {% endif %}
+                                </td>                                
+                                <td class="c2"><i class="wi wi-fw wi-time-{{ record[1] }}"></i></td>
+                                <td class="c2"><i class="wi wi-owm-{{ record[3] }}"></i></td>
+                                <td class="c3">{{ record[4] }}</td>
+                                <td class="c1">{{ record[5] }}</td>
+                                <td class="c2"></td>
+                                <td class="c3">{{ record[6] }}%</td>
+                                <td class="c2"><i class="wi wi-wind-beaufort-{{ record[7] }}"></i></td>
+                                <td class="c2"><i class="wi wi-wind from-{{ record[8] }}-deg"></i></td>
+                                <td class="c1">{{ record[9] }}</td>                                          
+                            </tr>
+                        {% endfor %}
+                    </tbody>               
+                </table> 
+            </div>           
+        </div>
+    </body>
+{% endblock %}

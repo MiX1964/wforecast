@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+{% endblock styles %}
+
+{% block scripts %}
+{{ super() }}
+<!--{{mymap.js}}-->
+{% endblock scripts %}
+
+{% block title %}Weather Forecast{% endblock %}
+
+{% block page_content %}
+    <header>
+       <p id="location"></p>
+    </header>
+
+    <div>
+        {{ mymap }}
+    </div>
+
+    <footer>
+        {{ wtf.quick_form (form, action="/showMap",
+                           method="POST", 
+                           form_type="inline",
+                           button_map={'forecast': 'primary'} ) }}
+    </footer>    
+{% endblock page_content %}
+   
